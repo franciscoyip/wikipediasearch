@@ -11,8 +11,6 @@ var WikiView = function(model, container){
 
   this.formSubmitted = new WikiEvent(this);
 
-
-
 };
 
 WikiView.prototype = {
@@ -28,45 +26,47 @@ WikiView.prototype = {
       title:title
     }).html(title);
     this._elements.randomlink = randomlink;
-    this._elements.form = $('<form>');
-    this._elements.input = $('<input>');
-    this._elements.resultcontainer = $('<div>');
+    this._elements.form = $('<form>').addClass('form-inline');
+    this._elements.input = $('<input>').addClass('form-control').attr({type:'text'});
+    this._elements.inputicon = $('<span>').addClass('search glyphicon glyphicon-search');
+    this._elements.resultcontainer = $('<div>').addClass('resultinner');
     //Attach Listeners to HTML elements
     this._elements.form.submit(function(e){
       e.preventDefault();
       _self.formSubmitted.notify();
     });
 
+    this._elements.inputicon.click(function(){
+      _self._elements.form.submit();
+    });
+
     this.render();
   },
   render: function(){
     this._elements.container.append(this._elements.randomlink);
-    this._elements.form.append(this._elements.input);
+    this._elements.form.append(this._elements.input).append(this._elements.inputicon);
     this._elements.container.append(this._elements.form);
     this._elements.container.append(this._elements.resultcontainer);
   },
   renderResult: function(){
-  
+
     var searchresult = this._model._searhresults;
     var urlprefix = 'https://en.wikipedia.org/?curid=';
     if('query' in searchresult && 'pages' in searchresult['query']){
       var pages = searchresult['query']['pages'];
       this._elements.resultcontainer.empty();
-      var ul = $('<ul>').addClass('list-group');
-
+      var div = $('<div>').addClass('list-group');
       for(var pageid in pages){
-        var li = $('<li>').addClass('list-group-item');
-        var a = $('<a>');
+        var a = $('<a>').addClass('list-group-item');
         var page = pages[pageid];
         a.html(page.title).attr({
           href: urlprefix+pageid,
           title:page.title,
           target:'_blank'
         });
-        li.append(a);
-        ul.append(li);
+        div.append(a);
       }
-      this._elements.resultcontainer.append(ul);
+      this._elements.resultcontainer.append(div);
     }
   }
 };

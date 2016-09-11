@@ -87,3 +87,21 @@ body {
     border-bottom: 0;
   }
 }
+
+/* App Style */
+.resultinner{
+  margin-top: 5px;
+}
+
+.resultinner .list-group{
+  margin-top: 5px;
+}
+
+form .search{
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+body{
+  background: #f7f7f7 none repeat scroll 0 0;
+}
