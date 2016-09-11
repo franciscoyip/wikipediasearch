@@ -12,3 +12,6 @@ bower install<br/>
 
 ## To Run
 gulp serve
+
+## Demo
+Click [here](http://codepen.io/beakerbreak/full/VKvVyb/) for a demo at codepen. The code is not up to date. Please refer to github for the latest code.
